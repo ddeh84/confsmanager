@@ -1,0 +1,28 @@
+---
+services:
+  confsmanager:
+    images: "myregistry:5000/myproject-confsmanager"
+    user: '1001:1001'
+    restart: on-failure:3
+    cpus: 0.01
+    mem_limit: 6m
+    memswap_limit: 6m
+    mem_swappiness: 0
+    #memory-reservation: 6m
+    #kernel-memory: 6m
+    oom_kill_disable: false
+    oom_score_adj: 10
+    #device-read-iops: /dev/sda:100
+    #device-write-bps: /dev/sda:1mb
+    #environment:
+    #  - TZ="Europe/Paris"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - confsmanager_output:/var/lib/confsmanager/output
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m
+volumes:
+  confsmanager_output:
+...
